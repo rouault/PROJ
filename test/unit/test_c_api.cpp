@@ -4824,6 +4824,7 @@ TEST_F(CApi, proj_crs_create_bound_vertical_crs) {
     ASSERT_NE(proj_4, nullptr);
     EXPECT_EQ(std::string(proj_4),
               "+proj=utm +zone=31 +datum=WGS84 +units=m +geoidgrids=foo.gtx "
+              "+geoid_crs=WGS84 "
               "+vunits=m +no_defs +type=crs");
 }
 

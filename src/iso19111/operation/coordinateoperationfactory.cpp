@@ -4930,7 +4930,6 @@ void CoordinateOperationFactory::Private::createOperationsCompoundToGeog(
             authFactory ? authFactory->databaseContext().as_nullable()
                         : nullptr;
 
-
         // Deal with "+proj=something +geoidgrids +nadgrids/+towgs84" to
         // another CRS whose datum is not the same as the horizontal datum
         // of the source
@@ -4952,7 +4951,7 @@ void CoordinateOperationFactory::Private::createOperationsCompoundToGeog(
                     dstGeog->datumNonNull(dbContext).get(),
                     util::IComparable::Criterion::EQUIVALENT)) {
 
-                const auto& op1Dest = comp1Bound->hubCRS();
+                const auto &op1Dest = comp1Bound->hubCRS();
                 const auto ops1 = createOperations(
                     crs::CompoundCRS::create(
                         util::PropertyMap().set(

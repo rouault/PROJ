@@ -9046,7 +9046,7 @@ TEST(io, projparse_longlat_geoidgrids) {
     auto wkt = f->toString();
     EXPECT_TRUE(
         wkt.find(
-            "ABRIDGEDTRANSFORMATION[\"unknown to WGS84 ellipsoidal height\"") !=
+            "ABRIDGEDTRANSFORMATION[\"unknown to WGS 84 ellipsoidal height\"") !=
         std::string::npos)
         << wkt;
     EXPECT_TRUE(wkt.find("PARAMETERFILE[\"Geoid (height correction) model "
@@ -9057,7 +9057,8 @@ TEST(io, projparse_longlat_geoidgrids) {
         crs->exportToPROJString(
             PROJStringFormatter::create(PROJStringFormatter::Convention::PROJ_4)
                 .get()),
-        "+proj=longlat +ellps=GRS80 +geoidgrids=foo.gtx +vunits=m +no_defs "
+        "+proj=longlat +ellps=GRS80 +geoidgrids=foo.gtx +geoid_crs=WGS84 "
+        "+vunits=m +no_defs "
         "+type=crs");
 }
 
