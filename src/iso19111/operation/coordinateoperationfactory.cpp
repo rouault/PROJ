@@ -61,6 +61,7 @@
 #include <string>
 #include <vector>
 
+#include <iostream>
 // #define TRACE_CREATE_OPERATIONS
 // #define DEBUG_SORT
 // #define DEBUG_CONCATENATED_OPERATION
@@ -4883,6 +4884,11 @@ getInterpolationGeogCRS(const CoordinateOperationNNPtr &verticalTransform,
 }
 
 // ---------------------------------------------------------------------------
+static void dumpWKT(const NS_PROJ::crs::CRS *crs) {
+    auto f(NS_PROJ::io::WKTFormatter::create(
+        NS_PROJ::io::WKTFormatter::Convention::WKT2_2019));
+    std::cerr << crs->exportToWKT(f.get()) << std::endl;
+}
 
 void CoordinateOperationFactory::Private::createOperationsCompoundToGeog(
     const crs::CRSNNPtr &sourceCRS, const crs::CRSNNPtr &targetCRS,
@@ -4891,6 +4897,14 @@ void CoordinateOperationFactory::Private::createOperationsCompoundToGeog(
     std::vector<CoordinateOperationNNPtr> &res) {
 
     ENTER_FUNCTION();
+
+    fprintf(stderr, "createOperationsCompoundToGeog()\n  %s\n  %s\n",
+            sourceCRS->nameStr().c_str(),
+            targetCRS->nameStr().c_str());
+    fprintf(stderr, "source: ");
+    dumpWKT(sourceCRS.get());
+    fprintf(stderr, "target: ");
+    dumpWKT(targetCRS.get());
 
     const auto &authFactory = context.context->getAuthorityFactory();
     const auto &componentsSrc = compoundSrc->componentReferenceSystems();
