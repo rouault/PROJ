@@ -7,7 +7,7 @@ noinst_HEADERS = gtest_include.h test_primitives.hpp
 AM_CPPFLAGS = -I$(top_srcdir)/src -I$(top_srcdir)/include -I$(top_srcdir)/test @GTEST_CFLAGS@ @SQLITE3_CFLAGS@ -DMUTEX_@MUTEX_SETTING@
 AM_CXXFLAGS = @CXX_WFLAGS@ @NO_ZERO_AS_NULL_POINTER_CONSTANT_FLAG@
 
-PROJ_LIB ?= ../../data/for_tests
+PROJ_DATA ?= ../../data/for_tests
 
 noinst_PROGRAMS = pj_phi2_test
 noinst_PROGRAMS += proj_errno_string_test
@@ -48,6 +48,7 @@ proj_context_test-check: proj_context_test
 
 test_cpp_api_SOURCES = test_util.cpp \
 			test_common.cpp \
+			test_coordinates.cpp \
 			test_crs.cpp \
 			test_metadata.cpp \
 			test_io.cpp \
@@ -61,13 +62,13 @@ test_cpp_api_SOURCES = test_util.cpp \
 test_cpp_api_LDADD = ../../src/libproj.la @GTEST_LIBS@ @SQLITE3_LIBS@
 
 test_cpp_api-check: test_cpp_api
-	PROJ_SKIP_READ_USER_WRITABLE_DIRECTORY=YES PROJ_LIB=$(PROJ_LIB) ./test_cpp_api
+	PROJ_SKIP_READ_USER_WRITABLE_DIRECTORY=YES PROJ_DATA=$(PROJ_DATA) ./test_cpp_api
 
 gie_self_tests_SOURCES = gie_self_tests.cpp main.cpp
 gie_self_tests_LDADD = ../../src/libproj.la @GTEST_LIBS@ @SQLITE3_LIBS@
 
 gie_self_tests-check: gie_self_tests
-	PROJ_SKIP_READ_USER_WRITABLE_DIRECTORY=YES PROJ_LIB=$(PROJ_LIB) ./gie_self_tests
+	PROJ_SKIP_READ_USER_WRITABLE_DIRECTORY=YES PROJ_DATA=$(PROJ_DATA) ./gie_self_tests
 
 include_proj_h_from_c_SOURCES = include_proj_h_from_c.c
 
@@ -76,31 +77,31 @@ test_network_CXXFLAGS = @CURL_CFLAGS@ @CURL_ENABLED_FLAGS@
 test_network_LDADD = ../../src/libproj.la @GTEST_LIBS@ @SQLITE3_LIBS@ @CURL_LIBS@
 
 test_network-check: test_network
-	PROJ_SKIP_READ_USER_WRITABLE_DIRECTORY=YES PROJ_LIB=$(PROJ_LIB) PROJ_SOURCE_DATA=$(PROJ_LIB) ./test_network
+	PROJ_SKIP_READ_USER_WRITABLE_DIRECTORY=YES PROJ_DATA=$(PROJ_DATA) PROJ_SOURCE_DATA=$(PROJ_DATA) ./test_network
 
 test_defmodel_SOURCES = test_defmodel.cpp main.cpp
 test_defmodel_LDADD = ../../src/libproj.la @GTEST_LIBS@
 
 test_defmodel-check: test_defmodel
-	PROJ_LIB=$(PROJ_LIB) ./test_defmodel
+	PROJ_DATA=$(PROJ_DATA) ./test_defmodel
 
 test_tinshift_SOURCES = test_tinshift.cpp main.cpp
 test_tinshift_LDADD = ../../src/libproj.la @GTEST_LIBS@
 
 test_tinshift-check: test_tinshift
-	PROJ_LIB=$(PROJ_LIB) ./test_tinshift
+	PROJ_DATA=$(PROJ_DATA) ./test_tinshift
 
 test_misc_SOURCES = test_misc.cpp main.cpp
 test_misc_LDADD = ../../src/libproj.la @GTEST_LIBS@
 
 test_misc-check: test_misc
-	PROJ_LIB=$(PROJ_LIB) ./test_misc
+	PROJ_DATA=$(PROJ_DATA) ./test_misc
 
 test_fork_SOURCES = test_fork.c
 test_fork_LDADD = ../../src/libproj.la @THREAD_LIB@
 
 test_fork-check: test_fork
-	PROJ_LIB=$(PROJ_LIB) ./test_fork
+	PROJ_DATA=$(PROJ_DATA) ./test_fork
 
 check-local: pj_phi2_test-check proj_errno_string_test-check \
 		proj_angular_io_test-check proj_context_test-check test_cpp_api-check \

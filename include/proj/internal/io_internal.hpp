@@ -39,6 +39,10 @@
 #include "proj/io.hpp"
 #include "proj/util.hpp"
 
+#ifdef VERSION
+#undef VERSION
+#endif
+
 //! @cond Doxygen_Suppress
 
 NS_PROJ_START

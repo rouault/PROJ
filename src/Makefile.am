@@ -5,31 +5,31 @@ EXTRA_PROGRAMS = multistresstest
 TESTS = geodtest
 check_PROGRAMS = geodtest
 
-AM_CPPFLAGS =	-DPROJ_LIB=\"$(pkgdatadir)\" \
+AM_CPPFLAGS =	-DPROJ_DATA=\"$(pkgdatadir)\" \
 		-DMUTEX_@MUTEX_SETTING@ -I$(top_srcdir)/include @SQLITE3_CFLAGS@ @TIFF_CFLAGS@ @TIFF_ENABLED_FLAGS@ @CURL_CFLAGS@ @CURL_ENABLED_FLAGS@ @PROJ_LIB_ENV_VAR_TRIED_LAST_FLAGS@
 AM_CXXFLAGS =    @CXX_WFLAGS@ @FLTO_FLAG@
 
 include_HEADERS = proj.h proj_experimental.h proj_constants.h geodesic.h \
 	 proj_symbol_rename.h
 
-EXTRA_DIST = bin_cct.cmake bin_gie.cmake bin_cs2cs.cmake \
-	bin_geod.cmake bin_proj.cmake bin_projinfo.cmake \
+EXTRA_DIST = apps/bin_cct.cmake apps/bin_gie.cmake apps/bin_cs2cs.cmake \
+	apps/bin_geod.cmake apps/bin_proj.cmake apps/bin_projinfo.cmake \
 	lib_proj.cmake \
 	check_md5sum.cmake \
 	generate_wkt_parser.cmake \
 	CMakeLists.txt \
-	bin_geodtest.cmake \
-	bin_projsync.cmake \
-	tests/geodtest.cpp \
+	tests/CMakeLists.txt \
+	apps/bin_projsync.cmake \
+	tests/geodtest.c \
 	wkt1_grammar.y wkt2_grammar.y apps/emess.h apps/utils.h \
-	apps/projsync.cpp
+	apps/projsync.cpp apps/CMakeLists.txt tests/geodsigntest.c tests/CMakeLists.txt
 
 proj_SOURCES = apps/proj.cpp apps/emess.cpp apps/utils.cpp
 invproj_SOURCES = $(proj_SOURCES)
 projinfo_SOURCES = apps/projinfo.cpp
 cs2cs_SOURCES = apps/cs2cs.cpp apps/emess.cpp apps/utils.cpp
 cct_SOURCES = apps/cct.cpp apps/proj_strtod.cpp apps/proj_strtod.h apps/optargpm.h
-geod_SOURCES = apps/geod.cpp apps/geod_set.cpp apps/geod_interface.cpp apps/geod_interface.h apps/emess.cpp
+geod_SOURCES = apps/geod.cpp apps/geod_set.cpp apps/geod_interface.cpp apps/geod_interface.h apps/emess.cpp apps/utils.cpp
 invgeod_SOURCES = $(geod_SOURCES)
 
 if HAVE_CURL
@@ -43,7 +43,7 @@ noinst_PROGRAMS = invproj invgeod
 
 gie_SOURCES = apps/gie.cpp apps/proj_strtod.cpp apps/proj_strtod.h apps/optargpm.h
 multistresstest_SOURCES = tests/multistresstest.cpp
-geodtest_SOURCES = tests/geodtest.cpp
+geodtest_SOURCES = tests/geodtest.c
 
 cct_LDADD = libproj.la
 cs2cs_LDADD = libproj.la
@@ -59,7 +59,7 @@ geodtest_LDADD = libproj.la
 
 lib_LTLIBRARIES = libproj.la
 
-libproj_la_LDFLAGS = -no-undefined -version-info 24:1:2
+libproj_la_LDFLAGS = -no-undefined -version-info 25:0:3
 libproj_la_LIBADD = @SQLITE3_LIBS@ @TIFF_LIBS@ @CURL_LIBS@
 
 libproj_la_SOURCES = \
@@ -69,6 +69,7 @@ libproj_la_SOURCES = \
 	iso19111/util.cpp \
 	iso19111/metadata.cpp \
 	iso19111/common.cpp \
+	iso19111/coordinates.cpp \
 	iso19111/crs.cpp \
 	iso19111/datum.cpp \
 	iso19111/coordinatesystem.cpp \
@@ -122,9 +123,10 @@ libproj_la_SOURCES = \
 	projections/cea.cpp \
 	projections/eqc.cpp \
 	projections/gall.cpp \
+	projections/imoll.cpp \
+	projections/imoll_o.cpp \
 	projections/labrd.cpp \
-	projections/lsat.cpp \
-	projections/misrsom.cpp \
+	projections/som.cpp \
 	projections/merc.cpp \
 	projections/mill.cpp \
 	projections/ocea.cpp \
@@ -217,6 +219,7 @@ libproj_la_SOURCES = \
 	\
 	transformations/affine.cpp \
 	transformations/deformation.cpp \
+	transformations/gridshift.cpp \
 	transformations/helmert.cpp \
 	transformations/hgridshift.cpp \
 	transformations/horner.cpp \
@@ -231,12 +234,13 @@ libproj_la_SOURCES = \
 	transformations/tinshift.hpp \
 	transformations/tinshift_exceptions.hpp \
 	transformations/tinshift_impl.hpp \
+	transformations/vertoffset.cpp \
 	\
 	aasincos.cpp adjlon.cpp \
 	dmstor.cpp auth.cpp \
 	deriv.cpp ell_set.cpp ellps.cpp \
 	factors.cpp fwd.cpp init.cpp inv.cpp \
-	list.cpp malloc.cpp mlfn.cpp mlfn.hpp msfn.cpp proj_mdist.cpp \
+	list.cpp malloc.cpp mlfn.cpp msfn.cpp proj_mdist.cpp \
 	param.cpp phi2.cpp pr_list.cpp \
 	qsfn.cpp strerrno.cpp \
 	tsfn.cpp units.cpp ctx.cpp log.cpp zpoly1.cpp rtodms.cpp \

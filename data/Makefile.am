@@ -42,8 +42,12 @@ SQL_ORDERED_LIST = sql/begin.sql \
 		sql/ignf.sql \
 		sql/nkg.sql \
 		sql/iau.sql \
+		sql/nrcan.sql \
+		sql/transformations_czechia.sql \
+		sql/transformations_czechia_extra.sql \
 		sql/grid_alternatives.sql \
 		sql/grid_alternatives_generated_noaa.sql \
+		sql/nadcon5_concatenated_operations.sql \
 		sql/customizations.sql \
 		sql/nkg_post_customizations.sql \
 		sql/commit.sql
@@ -132,6 +136,13 @@ EXTRA_DIST = proj.ini GL27 nad.lst nad27 nad83 \
 		tests/tinshift_fallback_nearest_side.json \
 		tests/tinshift_fallback_nearest_centroid.json \
 		generate_proj_db.cmake sql_filelist.cmake \
+		tests/us_noaa_nadcon5_nad83_1986_nad83_harn_conus_extract_sanfrancisco.tif \
+		tests/us_noaa_nadcon5_nad83_2007_nad83_2011_alaska_extract.tif \
+		tests/us_noaa_nadcon5_nad83_2007_nad83_2011_conus_extract.tif \
+		tests/test_gridshift_projected.tif \
+		tests/test_hydroid_height.tif \
+		tests/nkgrf03vel_realigned_extract_tiled_256x256.tif \
+		tests/fr_ign_RAGTBT2016.tif \
 		$(SQL_ORDERED_LIST)
 
 install-data-local:
