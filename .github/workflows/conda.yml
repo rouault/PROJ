@@ -16,7 +16,7 @@ permissions:
 jobs:
   conda:
     name: Conda ${{ matrix.platform }}
-    if: github.repository == 'OSGeo/PROJ'
+    #if: github.repository == 'OSGeo/PROJ'
 
     runs-on: ${{ matrix.platform }}
     strategy:
