@@ -21,7 +21,10 @@ elif grep -q "macos-15-intel" <<< "$GHA_CI_PLATFORM"; then
     ARCH="64"
 fi
 
-conda build recipe --clobber-file recipe/recipe_clobber.yaml --output-folder packages -m ".ci_support/${CONDA_PLAT}_${ARCH}_.yaml"
+rattler-build build \
+    --recipe-dir recipe \
+    --output-dir packages \
+    --variant-config ".ci_support/${CONDA_PLAT}_${ARCH}_.yaml"
 conda install -c ./packages proj
 
 #projinfo -s NAD27 -t EPSG:4269 --area "USA - Missouri"
