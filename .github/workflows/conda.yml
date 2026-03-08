@@ -3,8 +3,6 @@ name: Conda
 
 on:
   push:
-      paths-ignore:
-          - 'docs/**'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
@@ -16,7 +14,6 @@ permissions:
 jobs:
   conda:
     name: Conda ${{ matrix.platform }}
-    if: github.repository == 'OSGeo/PROJ'
 
     runs-on: ${{ matrix.platform }}
     strategy:
