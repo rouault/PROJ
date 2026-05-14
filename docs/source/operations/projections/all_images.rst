@@ -644,17 +644,6 @@ List of all projection images
 ********************************************************************************
 
 
-:ref:`isea`
-
-.. figure:: ./images/isea.png
-   :width: 500 px
-   :align: center
-   :alt:   isea
-
-
-********************************************************************************
-
-
 :ref:`kav5`
 
 .. figure:: ./images/kav5.png

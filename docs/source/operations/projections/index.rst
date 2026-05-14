@@ -39,6 +39,7 @@ Projections map the spherical 3D space to a flat 2D space.
    comill
    crast
    denoy
+   dsea
    eck1
    eck2
    eck3
@@ -71,6 +72,7 @@ Projections map the spherical 3D space to a flat 2D space.
    imoll_o
    imw_p
    isea
+   polyhedral
    kav5
    kav7
    krovak
@@ -147,6 +149,7 @@ Projections map the spherical 3D space to a flat 2D space.
    tobmerc
    tpeqd
    tpers
+   tsea
    ups
    urm5
    urmfps
